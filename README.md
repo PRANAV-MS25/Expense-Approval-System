@@ -114,7 +114,5 @@ Run these commands in your command prompt:
 ```
 cmd
 git add README.md
-DOS
 git commit -m "Fix README formatting"
-DOS
 git push
