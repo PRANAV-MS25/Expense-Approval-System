@@ -1,0 +1,92 @@
+@page "/submit-expense"
+@rendermode InteractiveServer
+
+@using MyBlazorApp.Models
+@using MyBlazorApp.Services
+
+@inject ExpenseApprovalService ExpenseService
+@inject AuthenticationService AuthService
+@inject NavigationManager Navigation
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3>Employee Dashboard - Submit Expense</h3>
+        @if (AuthService.CurrentUser != null)
+        {
+            <button class="btn btn-outline-danger btn-sm" @onclick="Logout">Logout (@AuthService.CurrentUser.Name)</button>
+        }
+    </div>
+
+    <div class="card p-4 shadow-sm mb-5" style="max-width: 600px;">
+        <h5 class="mb-3">New Expense Form</h5>
+        <div class="mb-3">
+            <label class="form-label">Employee Name</label>
+            <input class="form-control" @bind="newExpense.EmployeeName" />
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Amount (₹)</label>
+            <input type="number" class="form-control" @bind="newExpense.Amount" />
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" @bind="newExpense.Description"></textarea>
+        </div>
+        
+        <button class="btn btn-primary w-100" @onclick="HandleSubmit">Submit Expense</button>
+    </div>
+
+    <h4 class="mb-3">Your Submitted Expenses</h4>
+    @if (MyExpenses.Count == 0)
+    {
+        <div class="alert alert-info" style="max-width: 800px;">No expenses submitted yet.</div>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped shadow-sm" style="max-width: 900px;">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var exp in MyExpenses)
+                {
+                    <tr>
+                        <td>@exp.Id</td>
+                        <td>₹@exp.Amount</td>
+                        <td>@exp.Description</td>
+                        <td><span class="badge bg-secondary">@exp.Status</span></td>
+                        <td>@exp.ApproverNotes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    private Expense newExpense = new() { EmployeeName = "Rahul", Description = "" };
+
+    private List<Expense> MyExpenses => ExpenseService.GetAllExpenses();
+
+    private void HandleSubmit()
+    {
+        if (string.IsNullOrWhiteSpace(newExpense.EmployeeName) || newExpense.Amount <= 0) return;
+
+        ExpenseService.SubmitExpense(newExpense);
+        newExpense = new() { EmployeeName = "Rahul", Description = "" };
+        StateHasChanged();
+    }
+
+    private void Logout()
+    {
+        AuthService.Logout();
+        Navigation.NavigateTo("/login");
+    }
+}

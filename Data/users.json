@@ -1,0 +1,23 @@
+[
+  {
+    "Id": 1,
+    "Name": "Rahul",
+    "Email": "rahul@company.com",
+    "Password": "1234",
+    "Role": "Employee"
+  },
+  {
+    "Id": 2,
+    "Name": "Priya",
+    "Email": "priya@company.com",
+    "Password": "1234",
+    "Role": "Manager"
+  },
+  {
+    "Id": 3,
+    "Name": "Arun",
+    "Email": "arun@company.com",
+    "Password": "1234",
+    "Role": "Finance"
+  }
+]

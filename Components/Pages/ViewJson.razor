@@ -1,0 +1,35 @@
+@page "/view-json"
+@rendermode InteractiveServer
+
+@using MyBlazorApp.Services
+@using System.Text.Json
+
+@inject ExpenseApprovalService ExpenseService
+
+<h3 class="mb-4">Backend Storage (Raw JSON View)</h3>
+
+<p class="text-muted">
+    This displays the live state of your database file (<code>Data/expenses.json</code>) currently persisted by the backend service.
+</p>
+
+<button class="btn btn-primary mb-3" @onclick="RefreshData">Refresh JSON Data</button>
+
+<div class="card shadow-sm p-3 bg-dark text-light" style="max-width: 800px; max-height: 500px; overflow-y: auto;">
+    <pre style="color: #a6e22e; margin: 0;"><code>@jsonOutput</code></pre>
+</div>
+
+@code {
+    private string jsonOutput = "";
+
+    protected override void OnInitialized()
+    {
+        RefreshData();
+    }
+
+    private void RefreshData()
+    {
+        var expenses = ExpenseService.GetAllExpenses();
+        // Serialize the list with indentation for clean formatting
+        jsonOutput = JsonSerializer.Serialize(expenses, new JsonSerializerOptions { WriteIndented = true });
+    }
+}

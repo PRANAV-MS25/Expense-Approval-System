@@ -1,0 +1,162 @@
+@page "/approve-expense"
+@rendermode InteractiveServer
+
+@using MyBlazorApp.Models
+@using MyBlazorApp.Services
+
+@inject ExpenseApprovalService ExpenseService
+@inject AuthenticationService AuthService
+@inject NavigationManager Navigation
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3>Approval & Audit Dashboard</h3>
+        @if (AuthService.CurrentUser != null)
+        {
+            <button class="btn btn-outline-danger btn-sm" @onclick="Logout">Logout (@AuthService.CurrentUser.Name)</button>
+        }
+    </div>
+
+    @if (AuthService.CurrentUser == null)
+    {
+        <div class="alert alert-warning">
+            Please <a href="/login">login</a> to view this dashboard.
+        </div>
+    }
+    else
+    {
+        <div class="mb-4 p-3 bg-light rounded shadow-sm" style="max-width: 600px;">
+            <p class="mb-1"><strong>Logged in as:</strong> @AuthService.CurrentUser.Name (@AuthService.CurrentUser.Email)</p>
+            <p class="mb-0"><strong>Role Tier:</strong> <span class="badge bg-primary">@AuthService.CurrentUser.Role</span></p>
+        </div>
+
+        @if (AuthService.CurrentUser.Role == "Manager")
+        {
+            <h4 class="mb-3">Pending Manager Approvals (₹5K – ₹25K Tier)</h4>
+            @if (FilteredExpenses.Count == 0)
+            {
+                <div class="alert alert-info">No pending manager approvals found.</div>
+            }
+            else
+            {
+                <table class="table table-bordered table-striped shadow-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Employee</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var exp in FilteredExpenses)
+                        {
+                            <tr>
+                                <td>@exp.Id</td>
+                                <td>@exp.EmployeeName</td>
+                                <td>₹@exp.Amount</td>
+                                <td>@exp.Description</td>
+                                <td><span class="badge bg-warning text-dark">@exp.Status</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-success me-2" @onclick="() => Process(exp.Id, true)">Approve</button>
+                                    <button class="btn btn-sm btn-danger" @onclick="() => Process(exp.Id, false)">Reject</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+        else if (AuthService.CurrentUser.Role == "Finance")
+        {
+            <h4 class="mb-3">Master Finance Audit Table (All Company Expenses)</h4>
+            @if (FilteredExpenses.Count == 0)
+            {
+                <div class="alert alert-info">No expenses recorded in the system yet.</div>
+            }
+            else
+            {
+                <table class="table table-bordered table-striped shadow-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Employee</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Audit Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var exp in FilteredExpenses)
+                        {
+                            <tr>
+                                <td>@exp.Id</td>
+                                <td>@exp.EmployeeName</td>
+                                <td>₹@exp.Amount</td>
+                                <td>@exp.Description</td>
+                                <td><span class="badge bg-info text-dark">@exp.Status</span></td>
+                                <td>@exp.ApproverNotes</td>
+                                <td>
+                                    @if (exp.Status == ExpenseStatus.PendingFinanceApproval)
+                                    {
+                                        <button class="btn btn-sm btn-success me-2" @onclick="() => Process(exp.Id, true)">Approve</button>
+                                        <button class="btn btn-sm btn-danger" @onclick="() => Process(exp.Id, false)">Reject</button>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Processed</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+    }
+</div>
+
+@code {
+    private List<Expense> FilteredExpenses => GetRoleBasedView();
+
+    private List<Expense> GetRoleBasedView()
+    {
+        var user = AuthService.CurrentUser;
+        if (user == null) return new();
+
+        var allExpenses = ExpenseService.GetAllExpenses();
+
+        if (user.Role == "Manager")
+        {
+            // Managers only see items waiting for manager review
+            return allExpenses.Where(e => e.Status == ExpenseStatus.PendingManagerApproval).ToList();
+        }
+        else if (user.Role == "Finance")
+        {
+            // Finance sees ALL expenses across the system as a master audit table
+            return allExpenses;
+        }
+
+        return new();
+    }
+
+    private void Process(string id, bool isApproved)
+    {
+        var user = AuthService.CurrentUser;
+        if (user == null) return;
+
+        string comment = isApproved ? $"Approved by {user.Name} ({user.Role})" : $"Rejected by {user.Name} ({user.Role})";
+        ExpenseService.ProcessApproval(id, user.Role, isApproved, comment);
+        StateHasChanged();
+    }
+
+    private void Logout()
+    {
+        AuthService.Logout();
+        Navigation.NavigateTo("/login");
+    }
+}

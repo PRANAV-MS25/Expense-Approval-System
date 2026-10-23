@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "GILaK1U5QsM=",
+  "success": true,
+  "projectFilePath": "C:\\MyBlazorApp\\MyBlazorApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Dell\\.nuget\\packages\\litedb\\5.0.21\\litedb.5.0.21.nupkg.sha512",
+    "C:\\Users\\Dell\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.12\\microsoft.aspnetcore.app.internal.assets.10.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}

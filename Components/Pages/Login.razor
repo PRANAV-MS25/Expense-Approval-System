@@ -1,0 +1,56 @@
+@page "/login"
+@rendermode InteractiveServer
+
+@using MyBlazorApp.Models
+@using MyBlazorApp.Services
+
+@inject AuthenticationService AuthenticationService
+@inject NavigationManager Navigation
+
+<h1>Expense Approval System</h1>
+
+<h2>Login</h2>
+
+<div class="mb-3">
+    <label class="form-label">Email</label>
+    <input class="form-control" @bind="email" type="email" style="max-width: 400px;" />
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Password</label>
+    <input class="form-control" @bind="password" type="password" style="max-width: 400px;" />
+</div>
+
+<button class="btn btn-primary" @onclick="HandleLogin">Login</button>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p class="text-danger mt-3">@errorMessage</p>
+}
+
+@code {
+    private string email = "";
+    private string password = "";
+    private string errorMessage = "";
+
+    private async Task HandleLogin()
+    {
+        User? user = await AuthenticationService.LoginAsync(email, password);
+
+        if (user == null)
+        {
+            errorMessage = "Invalid email or password.";
+            return;
+        }
+
+        // Redirect based on role to existing routes
+        if (user.Role == "Employee")
+        {
+            Navigation.NavigateTo("/submit-expense");
+        }
+        else if (user.Role == "Manager" || user.Role == "Finance")
+        {
+            Navigation.NavigateTo("/approve-expense");
+        }
+    }
+}

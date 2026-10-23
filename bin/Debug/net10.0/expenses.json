@@ -1,0 +1,119 @@
+[
+  {
+    "Id": "96b5e7b7",
+    "EmployeeName": "Rahul",
+    "Amount": 5000,
+    "Description": "Personal Bill",
+    "Status": 3,
+    "SubmissionDate": "2026-10-11T19:44:25.1586923+05:30",
+    "ApproverNotes": "Approved by Manager: Approved by Manager"
+  },
+  {
+    "Id": "9c6446ac",
+    "EmployeeName": "Rahul",
+    "Amount": 5000,
+    "Description": "Maintence Bill",
+    "Status": 3,
+    "SubmissionDate": "2026-10-11T19:44:47.4990936+05:30",
+    "ApproverNotes": "Approved by Manager: Approved by Manager"
+  },
+  {
+    "Id": "cbfce662",
+    "EmployeeName": "Rahul",
+    "Amount": 3251,
+    "Description": "Personal Bill",
+    "Status": 0,
+    "SubmissionDate": "2026-10-11T19:47:01.9162583+05:30",
+    "ApproverNotes": "Auto-Approved (\u003C \u20B95,000)"
+  },
+  {
+    "Id": "aafd00cd",
+    "EmployeeName": "Pranav",
+    "Amount": 4999,
+    "Description": "pb",
+    "Status": 0,
+    "SubmissionDate": "2026-10-11T19:48:01.8341193+05:30",
+    "ApproverNotes": "Auto-Approved (\u003C \u20B95,000)"
+  },
+  {
+    "Id": "3628d76e",
+    "EmployeeName": "Pranav",
+    "Amount": 12000,
+    "Description": "Water and current bill",
+    "Status": 4,
+    "SubmissionDate": "2026-10-11T19:52:47.0324532+05:30",
+    "ApproverNotes": "Rejected by Manager: Rejected by Manager"
+  },
+  {
+    "Id": "e4acc2eb",
+    "EmployeeName": "Rahul",
+    "Amount": 30000,
+    "Description": "Bike Bill",
+    "Status": 3,
+    "SubmissionDate": "2026-10-11T19:55:45.9480883+05:30",
+    "ApproverNotes": "Approved by Finance: Approved by Finance"
+  },
+  {
+    "Id": "1c493683",
+    "EmployeeName": "Rahul",
+    "Amount": 3000,
+    "Description": "Maintence",
+    "Status": 0,
+    "SubmissionDate": "2026-10-12T18:45:39.1461367+05:30",
+    "ApproverNotes": "Auto-Approved (\u003C \u20B95,000)"
+  },
+  {
+    "Id": "a451666a",
+    "EmployeeName": "Rahul",
+    "Amount": 26000,
+    "Description": "...\n",
+    "Status": 3,
+    "SubmissionDate": "2026-10-12T18:48:17.8935953+05:30",
+    "ApproverNotes": "Approved by Finance: Approved by Arun (Finance)"
+  },
+  {
+    "Id": "e1fe8e64",
+    "EmployeeName": "Rahul",
+    "Amount": 2000,
+    "Description": "Current  Bill",
+    "Status": 0,
+    "SubmissionDate": "2026-10-12T19:42:38.9296366+05:30",
+    "ApproverNotes": "Auto-Approved (\u003C \u20B95,000)"
+  },
+  {
+    "Id": "33a905f5",
+    "EmployeeName": "Rahul",
+    "Amount": 26000,
+    "Description": "Salaries",
+    "Status": 3,
+    "SubmissionDate": "2026-10-12T19:46:06.7749281+05:30",
+    "ApproverNotes": "Approved by Finance: Approved by Arun (Finance)"
+  },
+  {
+    "Id": "6ffdaee5",
+    "EmployeeName": "Rahul",
+    "Amount": 30000000,
+    "Description": "Yearly profit",
+    "Status": 3,
+    "SubmissionDate": "2026-10-12T19:48:58.5524557+05:30",
+    "ApproverNotes": "Approved by Finance: Approved by Arun (Finance)"
+  },
+  {
+    "Id": "2ed59960",
+    "EmployeeName": "Rahul",
+    "Amount": 24000,
+    "Description": "water\u002Bcurrent\u002Bwatch man salary",
+    "Status": 3,
+    "SubmissionDate": "2026-10-12T19:51:09.8977146+05:30",
+    "ApproverNotes": "Approved by Manager: Approved by Priya (Manager)"
+  },
+  {
+    "Id": "84909f79",
+    "EmployeeName": "Pranav",
+    "Amount": 2000,
+    "Description": "water Bill",
+    "Status": 0,
+    "SubmissionDate": "2026-10-16T21:44:55.5592766+05:30",
+    "ApproverNotes": "Auto-Approved (\u003C \u20B95,000)"
+  }
+]
