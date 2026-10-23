@@ -58,19 +58,63 @@ MyBlazorApp/
 │   ├── AuthenticationService.cs      # Auth state & session tracking
 │   └── ExpenseApprovalService.cs     # Business rules & CRUD persistence
 └── Program.cs                        # Service registrations & routing configuration
+
 ```
-👥 Demo User CredentialsTest the hierarchical workflow using these pre-configured user credentials:RoleNameEmailPasswordScope / VisibilityEmployeeRahulrahul@company.com12345Can submit expenses & view personal historyManagerPriyapriya@company.com12345Can review expenses between ₹5,000 – ₹25,000FinanceArunarun@company.com12345Master audit access & high-value approvals (> ₹25,000)🚀 Getting Started LocallyPrerequisites.NET 8.0 SDK installed on your system.Visual Studio 2022 or VS Code.Installation & RunClone the repository:Bashgit clone [https://github.com/PRANAV-MS25/Expense-Approval-System.git](https://github.com/PRANAV-MS25/Expense-Approval-System.git)
+👥 Demo User Credentials
+1. Employee
+Name: Rahul
+
+Email: rahul@company.com
+
+Password: 12345
+
+Scope: Submit expenses & view personal history table
+
+2. Manager
+Name: Priya
+
+Email: priya@company.com
+
+Password: 12345
+
+Scope: Approve/Reject expenses between ₹5,000 – ₹25,000
+
+3. Finance
+Name: Arun
+
+Email: arun@company.com
+
+Password: 12345
+
+Scope: Master audit table & high-value approvals (> ₹25,000)
+
+🚀 Getting Started Locally
+Prerequisites
+.NET 8.0 SDK installed on your system.
+
+Running the App
+Clone the repository:
+
+Bash
+git clone [https://github.com/PRANAV-MS25/Expense-Approval-System.git](https://github.com/PRANAV-MS25/Expense-Approval-System.git)
 cd Expense-Approval-System
-Restore dependencies & run:Bashdotnet run
-Launch in Browser:
-Navigate to http://localhost:5227 (or your local IIS Express port). The application will automatically route you to the Login screen.📄 LicenseThis project is open-source and available under the MIT License.
+Run the project:
+
+Bash
+dotnet run
+Navigate to http://localhost:5227 in your browser.
+
+
 ---
 
-### Step 2: Commit and push the README to GitHub
+### Update on GitHub:
 
-Run these three commands in your terminal at `C:\MyBlazorApp`:
+Run these commands in your command prompt:
 
-```cmd
+```
+cmd
 git add README.md
-DOSgit commit -m "Docs: Add comprehensive README documentation"
-DOSgit push
+DOS
+git commit -m "Fix README formatting"
+DOS
+git push
